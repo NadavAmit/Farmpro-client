@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Menu, MenuItem } from "react-pro-sidebar";
+import { Menu, MenuItem, useProSidebar } from "react-pro-sidebar";
 import { Sidebar as ProSideBar } from "react-pro-sidebar";
 import { Box, IconButton, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -36,14 +36,14 @@ const SideBar = () => {
     setSelected,
   }) => {
     return (
-      <MenuItem
-        active={selected === title}
-        onClick={() => setSelected(title)}
-        icon={icon}
-      >
-        <Typography>{title}</Typography>
-        <Link to={to} />
-      </MenuItem>
+        <MenuItem
+          active={selected === title}
+          onClick={() => setSelected(title)}
+          icon={icon}
+          component={<Link to={to}/>}
+        >
+          <Typography>{title}</Typography>
+        </MenuItem>
     );
   };
 
@@ -68,18 +68,9 @@ const SideBar = () => {
                 </IconButton>
               </Box>
             )}
-          </MenuItem>
+          </MenuItem> 
           {!isCollapsed && (
             <Box mb="25px">
-              {/* <Box display="flex" justifyContent="center" alignItems="center">
-                <img
-                  alt="profile-user"
-                  width="100px"
-                  height="100px"
-                  src={`../../assets/user.png`}
-                  style={{ cursor: "pointer", borderRadius: "50%" }}
-                />
-              </Box> */}
               <Box textAlign="center">
                 <Typography
                   variant="h4"
@@ -105,21 +96,28 @@ const SideBar = () => {
               Data
             </Typography>
             <Item
-              title="Manage Team"
-              to="/team"
+              title="Lands"
+              to="/land"
               icon={<PeopleOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Contacts Information"
-              to="/contacts"
+              title="Crops Tracking"
+              to="/crop"
               icon={<ContactsOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Invoices Balances"
+              title="Crops Type Management"
+              to="/crop-type"
+              icon={<ContactsOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Expense and Profit Tracking"
               to="/invoices"
               icon={<ReceiptOutlinedIcon />}
               selected={selected}

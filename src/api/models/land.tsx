@@ -1,9 +1,10 @@
 interface Land {
-    id?: string;
+    _id?: string;
     name: string;
     size: number;
-    cropType: string;
-    currentStage: string;
+    cropId?:number;
+    cropType: number;
+    stage: number;
 }
 
 export default Land;

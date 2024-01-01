@@ -1,11 +1,47 @@
 import React, { useEffect, useState } from "react";
 import useLands from "../hooks/useLands";
+import {DataGrid} from '@mui/x-data-grid';
+import LandGrid from "../components/Land/LandGrid";
+import { Box } from "@mui/material";
+import Header from "../components/Global/Header";
 
 const Lands = () => {
   const { getAllLands, getSingleLand, addLand, updateLand, removeLand } =
     useLands();
   const { data, isLoading, error } = getAllLands();
+  const columns = [
+    {field:'id',
+     headerName:'ID',
+     
+    },
+    {
+      field: 'name',
+      headerName: 'Name',
+      flex:1
+    },
+    {
+      field: 'size',
+      headerName: 'Size',
+      type:'number',
+      editable: true,
+      flex:1
+    },
+    {
+      field: 'cropType',
+      headerName: 'Crop Type',
+      type:'number',
+      editable: true,
+      flex:1
 
+    },
+    {
+      field: 'stage',
+      headerName: 'Stage',
+      type:'number',
+      editable: true,
+      flex:1
+    },
+  ];
   const initialNewLand = {
     name: "",
     size: 0,
@@ -57,77 +93,19 @@ const Lands = () => {
   }
 
   return (
-    <div>
-      {/* <h2>Create Land</h2>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleCreateLand();
-        }}
+    <Box m='20px'>
+      <Header title = 'Lands' subtitle="Manage all the lands"/>
+      <Box
+        m='40px 0 0 0'
+        height='75vh'
+        width='75vw'
       >
-        {Object.keys(initialNewLand).map((field, index) => (
-          <div key={index}>
-            <label htmlFor={field}>{field}</label>
-            <input
-              type={field === "size" ? "number" : "text"}
-              id={field}
-              name={field}
-              value={newLand[field]}
-              onChange={(e) =>
-                setNewLand({ ...newLand, [field]: e.target.value })
-              }
-            />
-          </div>
-        ))}
-        <button type="submit">Create</button>
-      </form>
-
-      <h2>Update Land</h2>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleUpdateLand();
-        }}
-      >
-        <select
-          value={updatedLand.id}
-          onChange={(e) =>
-            setUpdatedLand(data.find((item) => item.id === e.target.value))
-          }
-        >
-          {data.map((item) => (
-            <option key={item.id} value={item.id}>
-              {item.name}
-            </option>
-          ))}
-        </select>
-        {Object.keys(updatedLand).map((field, index) => (
-          <div key={index}>
-            <label htmlFor={field}>{field}</label>
-            <input
-              type={field === "size" ? "number" : "text"}
-              id={field}
-              name={field}
-              value={updatedLand[field]}
-              onChange={(e) =>
-                setUpdatedLand({ ...updatedLand, [field]: e.target.value })
-              }
-            />
-          </div>
-        ))}
-        <button type="submit">Update</button>
-      </form>
-
-      <h2>Delete Land</h2>
-      <ul>
-        {data.map((item) => (
-          <li key={item.id}>
-            {item.name}{" "}
-            <button onClick={() => handleDeleteLand(item.id)}>Delete</button>
-          </li>
-        ))}
-      </ul> */}
-    </div>
+        <DataGrid 
+        rows={data}
+        columns={columns}
+        />
+      </Box>
+    </Box>
   );
 };
 
