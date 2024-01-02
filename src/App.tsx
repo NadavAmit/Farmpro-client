@@ -16,10 +16,9 @@ function App() {
         <Topbar />
         <Routes>
           <Route path="/" element={<Dashboard />}></Route>
-          <Route path="/land" element={<Lands />}>
-            {/* <Route path="/land/create" element={<LandCreatePage />}>
-            </Route> */}
-          </Route>
+          <Route path="/land" element={<Lands />}></Route>
+          <Route path="/land/create" element={<LandCreatePage />}></Route>
+
         </Routes>
       </main>
     </div>

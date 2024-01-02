@@ -70,11 +70,6 @@ const useLands = () => {
         }
     };
 
-    // const removeLand = (id: string) => {
-    //     const { deleteData, error } = Delete(id, '/land', model, true);
-    //     return { deleteData, error };
-    // };
-
     return {
         getAllLands,
         getSingleLand,
