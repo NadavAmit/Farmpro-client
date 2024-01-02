@@ -1,5 +1,5 @@
-interface Land {
-    _id?: string;
+interface Field {
+    id?: string;
     name: string;
     size: number;
     cropId?:number;
@@ -7,4 +7,4 @@ interface Land {
     stage: number;
 }
 
-export default Land;
+export default Field;

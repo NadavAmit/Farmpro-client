@@ -2,27 +2,22 @@ import {
   Box,
   Button,
   TextField,
-  Select,
-  MenuItem,
-  InputLabel,
-  FormControl,
 } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../components/Global/Header";
-import Land from "../api/models/land";
-import useLands from "../hooks/useLands";
-import { useState } from "react";
+import Field from "../api/models/field";
+import useFields from "../hooks/useFields";
 
-const LandCreatePage = () => {
-  const { addLand } = useLands();
+const FieldCreatePage = () => {
+  const { addField: addField } = useFields();
   const isNonMobile = useMediaQuery("(min-width:600px)");
 
-  const handleFormSubmit = async (newLand: Land) => {
-    console.log(newLand);
-    const createdLand = await addLand(newLand);
-    console.log(createdLand);
+  const handleFormSubmit = async (newField: Field) => {
+    console.log(newField);
+    const createdField = await addField(newField);
+    console.log(createdField);
   };
 
   const checkoutSchema = yup.object().shape({
@@ -31,7 +26,7 @@ const LandCreatePage = () => {
     cropType: yup.number().required("required"),
     stage: yup.number().required("required"),
   });
-  const initialValues: Land = {
+  const initialValues: Field = {
     name: "",
     size: 0,
     cropId: 0,
@@ -41,7 +36,7 @@ const LandCreatePage = () => {
 
   return (
     <Box m="20px">
-      <Header title="Create Land" subtitle="Create a New Land" />
+      <Header title="Create Field" subtitle="Create a New Field" />
 
       <Formik
         onSubmit={handleFormSubmit}
@@ -135,7 +130,7 @@ const LandCreatePage = () => {
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
               <Button type="submit" color="secondary" variant="contained">
-                Create New Land
+                Create New Field
               </Button>
             </Box>
           </form>
@@ -145,4 +140,4 @@ const LandCreatePage = () => {
   );
 };
 
-export default LandCreatePage;
+export default FieldCreatePage;

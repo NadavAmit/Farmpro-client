@@ -2,17 +2,6 @@ import React from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import apiClient from '../api/apiClient';
 
-const fetchData = async (model: string): Promise<any> => {
-    const url = `/api/land/`; // Customize the base URL as needed
-    try {
-        const response = await apiClient.get(url);
-        return response.data;
-    } catch (error) {
-        console.error('Error fetching data:', error);
-        throw new Error('Failed to fetch data. Check the console for details.');
-    }
-};
-
 const useReactQuery = () => {
     const queryClient = useQueryClient()
 
