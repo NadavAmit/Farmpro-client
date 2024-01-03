@@ -1,21 +1,16 @@
 import React, { useEffect, useState } from "react";
 import useFields from "../hooks/useFields";
-import { DataGrid,GridAlignment,GridCellParams } from "@mui/x-data-grid";
+import { DataGrid,GridCellParams } from "@mui/x-data-grid";
 import { Box } from "@mui/material";
 import Header from "../components/Global/Header";
 import { useNavigate } from "react-router-dom";
 
-const Fields = () => {
+const IncomesAndExpenses = () => {
   const { getAllFields, addField, updateField, removeField } = useFields();
   const { data, isLoading, error } = getAllFields();
   console.log(data)
   const navigate = useNavigate();
-  const allignLeft:GridAlignment = 'left';
-  const defaultColumnConfig = {   
-    headerAlign: allignLeft,
-    align:allignLeft,
-  }
-  
+
   const columns = [
     { field: "id", headerName: "ID" },
     {
@@ -70,15 +65,6 @@ const Fields = () => {
       },
     },
   ];
-  
-
-  const getColumns = () => {
-    return columns.map((column) => ({
-      ...defaultColumnConfig, // Merge default properties
-      ...column,
-    }));
-  };
-
   const initialNewField = {
     name: "",
     size: 0,
@@ -148,10 +134,10 @@ const Fields = () => {
         //   }
         // }}
       >
-        <DataGrid rows={data} columns={getColumns()} checkboxSelection/>
+        <DataGrid rows={data} columns={columns} checkboxSelection />
       </Box>
     </Box>
   );
 };
 
-export default Fields;
+export default IncomesAndExpenses;
