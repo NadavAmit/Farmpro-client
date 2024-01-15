@@ -1,5 +1,6 @@
 import React from 'react';
 import useReactQuery from './useReactQuery';
+import Activity from '../api/models/activity';
 
 const model = 'activity';
 
@@ -16,7 +17,7 @@ const useActivities = () => {
         return { data, isLoading, error, isError };
     };
 
-    const addActivity = async (newActivityData: any) => {
+    const addActivity = async (newActivityData: Activity) => {
         try {
             return await Create.mutateAsync(
                 {

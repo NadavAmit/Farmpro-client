@@ -15,6 +15,8 @@ import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutl
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
+import AgricultureOutlinedIcon from '@mui/icons-material/AgricultureOutlined';
+import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
 
 interface ItemProps {
   title: string;
@@ -98,7 +100,7 @@ const SideBar = () => {
             <Item
               title="Fields"
               to="/field"
-              icon={<PeopleOutlinedIcon />}
+              icon={<AgricultureOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
@@ -112,19 +114,19 @@ const SideBar = () => {
             <Item
               title="Crops Type Management"
               to="/crop-type"
-              icon={<ContactsOutlinedIcon />}
+              icon={<AgricultureOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
               title="Expense and Profit Tracking"
               to="/invoices"
-              icon={<ReceiptOutlinedIcon />}
+              icon={<PaidOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
 
-            <Typography variant="h6" sx={{ m: "15px 0 5px 20px" }}>
+            {/* <Typography variant="h6" sx={{ m: "15px 0 5px 20px" }}>
               Pages
             </Typography>
             <Item
@@ -179,7 +181,7 @@ const SideBar = () => {
               icon={<MapOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+            /> */}
           </Box>
         </Menu>
       </ProSideBar>

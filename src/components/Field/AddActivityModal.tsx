@@ -17,18 +17,21 @@ import useActivities from "../../hooks/useActivities";
 interface AddActivityModalProps {
   open: boolean;
   setOpen: (open: boolean) => void;
+  fieldId:number;
 }
 const AddActivityModal: React.FC<AddActivityModalProps> = ({
   open,
   setOpen,
+  fieldId
 }) => {
   const { addActivity } = useActivities();
+  
   const today = new Date();
 
   const handleFormSubmit = async (newActivity: Activity) => {
     console.log(newActivity);
     const createdActivity = await addActivity(newActivity);
-    console.log(newActivity);
+    console.log(createdActivity);
   };
 
   const checkoutSchema = yup.object().shape({
@@ -42,6 +45,7 @@ const AddActivityModal: React.FC<AddActivityModalProps> = ({
     date: new Date(),
     cropType: "",
     fieldSize: 0,
+    field: fieldId
   };
 
   const handleClose = () => {
@@ -124,14 +128,16 @@ const AddActivityModal: React.FC<AddActivityModalProps> = ({
                   sx={{ gridColumn: "span 4" }}
                 />
               </Box>
+              <DialogActions>
+                <Button onClick={handleClose}>Cancel</Button>
+                <Button type="submit" onClick={handleClose}>
+                  Add Activity
+                </Button>
+              </DialogActions>
             </form>
           )}
         </Formik>
       </DialogContent>
-      <DialogActions>
-        <Button onClick={handleClose}>Cancel</Button>
-        <Button onClick={handleClose}>Subscribe</Button>
-      </DialogActions>
     </Dialog>
   );
 };

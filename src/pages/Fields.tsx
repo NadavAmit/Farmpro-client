@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 const Fields = () => {
   const { getAllFields, addField, updateField, removeField } = useFields();
   const { data, isLoading, error } = getAllFields();
-  console.log(data)
   const navigate = useNavigate();
   const allignLeft:GridAlignment = 'left';
   const defaultColumnConfig = {   

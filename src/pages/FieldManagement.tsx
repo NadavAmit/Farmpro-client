@@ -8,18 +8,29 @@ import useFields from "../hooks/useFields";
 import ErrorComponent from "../components/Global/ErrorComponent";
 import { DataGrid, GridAlignment, GridCellParams, GridRenderCellParams } from "@mui/x-data-grid";
 import AddActivityModal from "../components/Field/AddActivityModal";
+import useActivities from "../hooks/useActivities";
 
 const FieldManagement = () => {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const [openActivityModal, setOpenActivityModal] = React.useState(false);
 
   const { getSingleField } = useFields();
+  const { getAllActivities } = useActivities();
+  const{data} = getAllActivities();
+  
+  if (!id) {
+    // Redirect to a 404 page or render default content specific to this component
+    // history.push('/404');
+    // Or render default content within this component
+    return <div>No field ID provided for this page</div>;
+  }
+
   const {
     data: field,
     isError,
     isLoading,
     error,
-  } = getSingleField(id as string);
+  } = getSingleField(id);
 
   const allignLeft:GridAlignment = 'left';
   const defaultColumnConfig = {   
@@ -54,13 +65,13 @@ const FieldManagement = () => {
       flex: 1,
 
     },
-    {
-      field: "date",
-      headerName: "Date",
-      type:'date',
-      editable: true,
-      flex: 1,
-    },
+    // {
+    //   field: "date",
+    //   headerName: "Date",
+    //   type:'date',
+    //   editable: true,
+    //   flex: 1,
+    // },
     {
       field: "cropType",
       headerName: "Crop Type",
@@ -115,10 +126,10 @@ const FieldManagement = () => {
             Activities List
           </Typography>
           <Button variant="contained" onClick={()=>setOpenActivityModal(true)}>Add new Activity</Button>
-          <AddActivityModal open={openActivityModal} setOpen={setOpenActivityModal} />
+          <AddActivityModal open={openActivityModal} setOpen={setOpenActivityModal} fieldId={Number(id)} />
         </Box>
         <Box height="45vh" m="5px 0 0 0">
-          <DataGrid columns={getColumns()} rows={[]}/>
+          <DataGrid columns={getColumns()} rows={data}/>
         </Box>
         
       </Box>

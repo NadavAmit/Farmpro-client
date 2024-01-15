@@ -1,5 +1,5 @@
 interface Field {
-    id?: string;
+    id?: number;
     name: string;
     size: number;
     cropId?:number;
