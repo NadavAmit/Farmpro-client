@@ -4,7 +4,7 @@ interface Activity {
     date?: Date;
     cropType: string;
     fieldSize: number;
-    field: number;
+    fieldId: number;
 }
 
 export default Activity;

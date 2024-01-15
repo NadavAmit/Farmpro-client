@@ -5,7 +5,7 @@ import apiClient from '../api/apiClient';
 const useReactQuery = () => {
     const queryClient = useQueryClient()
 
-    const GetAll = (path: string, queryKey: string = path, model: string, enabled?: boolean) => {
+    const GetAll = (path: string, queryKey: any = path, model: string, enabled?: boolean) => {
         const { data, isLoading, error, isError } = useQuery({
             queryKey: [queryKey],
             queryFn: () => apiClient
@@ -38,7 +38,7 @@ const useReactQuery = () => {
 
     const Create = useMutation(
         {
-            mutationFn: (props: { path: string, newData: any, model: string, queryKey?: string, enabled?: boolean }) => 
+            mutationFn: (props: { path: string, newData: any, model: string, queryKey?: string[], enabled?: boolean }) => 
             { return apiClient.post(props.path, props.newData) },
             onSuccess: (data, variables) => {
                 if (variables.queryKey) {
@@ -53,7 +53,7 @@ const useReactQuery = () => {
 
     const Update = useMutation(
         {
-            mutationFn: (props: { id: string, path: string, updatedData: any, model: string, queryKey?: string, enabled?: boolean }) =>
+            mutationFn: (props: { id: string, path: string, updatedData: any, model: string, queryKey?: string[], enabled?: boolean }) =>
              { return apiClient.put(`${props.path}/${props.id}`, props.updatedData) },
             onSuccess: (data, variables) => {
                 if (variables.queryKey) {
@@ -68,7 +68,7 @@ const useReactQuery = () => {
 
     const Delete = useMutation(
         {
-            mutationFn: (props: { id: string, path: string, model: string, queryKey?: string, enabled?: boolean }) => 
+            mutationFn: (props: { id: string, path: string, model: string, queryKey?: string[], enabled?: boolean }) => 
             { return apiClient.delete(`${props.path}/${props.id}`) },
             onSuccess: (data, variables) => {
                 if (variables.queryKey) {

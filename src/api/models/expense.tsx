@@ -1,7 +1,7 @@
 interface Expense {
     _id?: number;
-    field_id: number;
-    expense_type: string;
+    fieldId: number;
+    expenseType: string;
     amount: number;
     date: Date;
 }

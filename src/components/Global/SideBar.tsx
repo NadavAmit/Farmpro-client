@@ -120,7 +120,7 @@ const SideBar = () => {
             />
             <Item
               title="Expense and Profit Tracking"
-              to="/invoices"
+              to="/incomes-expenses"
               icon={<PaidOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}

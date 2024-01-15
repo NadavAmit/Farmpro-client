@@ -9,21 +9,30 @@ import ErrorComponent from "../components/Global/ErrorComponent";
 import { DataGrid, GridAlignment, GridCellParams, GridRenderCellParams } from "@mui/x-data-grid";
 import AddActivityModal from "../components/Field/AddActivityModal";
 import useActivities from "../hooks/useActivities";
+import AddExpenseModal from "../components/IncomesAndExpenses/AddExpenseModal";
+import AddEarningModal from "../components/IncomesAndExpenses/AddEarningModal";
+import useEarnings from "../hooks/useEarnings";
+import useExpenses from "../hooks/useExpenses";
+import { earningsColumns, expensesColumns } from "../Common/ColumnDefs";
 
 const FieldManagement = () => {
   const { id } = useParams<{ id: string }>();
   const [openActivityModal, setOpenActivityModal] = React.useState(false);
+  const [openIncomeModal, setOpenIncomeModal] = React.useState(false);
+  const [openExpenseModal, setOpenExpenseModal] = React.useState(false);
+
 
   const { getSingleField } = useFields();
-  const { getAllActivities } = useActivities();
-  const{data} = getAllActivities();
+  const { getAllFieldActivitiesById } = useActivities();
+  const {getEarningsByFieldId} = useEarnings();
+  const {getExpensesByFieldId} = useExpenses();
+  
   
   if (!id) {
-    // Redirect to a 404 page or render default content specific to this component
-    // history.push('/404');
-    // Or render default content within this component
     return <div>No field ID provided for this page</div>;
   }
+
+  const{data} = getAllFieldActivitiesById(id);
 
   const {
     data: field,
@@ -31,6 +40,10 @@ const FieldManagement = () => {
     isLoading,
     error,
   } = getSingleField(id);
+  const{data:expensesData,isLoading:isLoadingExpenses,isError:isErrorExpenses,error:errorExpenses} = getExpensesByFieldId(id);
+  const{data:earningsData,isLoading:isLoadingEarnings,isError:isErrorEarnings,error:errorEarnings} = getEarningsByFieldId(id);
+
+  
 
   const allignLeft:GridAlignment = 'left';
   const defaultColumnConfig = {   
@@ -129,7 +142,7 @@ const FieldManagement = () => {
           <AddActivityModal open={openActivityModal} setOpen={setOpenActivityModal} fieldId={Number(id)} />
         </Box>
         <Box height="45vh" m="5px 0 0 0">
-          <DataGrid columns={getColumns()} rows={data}/>
+          <DataGrid columns={getColumns()} rows={data} checkboxSelection/>
         </Box>
         
       </Box>
@@ -144,12 +157,13 @@ const FieldManagement = () => {
           }}
         >
           <Typography sx={{ alignContent: "baseline" }}>
-            Earnings List
+            Incomes List
           </Typography>
-          <Button variant="contained" >Add new Activity</Button>
+          <Button variant="contained"  onClick={()=>setOpenIncomeModal(true)} >Add new Income</Button>
+          <AddEarningModal open={openIncomeModal} setOpen={setOpenIncomeModal} fieldId={Number(id)} />
         </Box>
         <Box height="45vh" m="5px 0 0 0">
-          <DataGrid columns={[]} rows={[]} />
+        <DataGrid columns={earningsColumns} rows={earningsData}/>
         </Box>
         
       </Box>
@@ -164,10 +178,11 @@ const FieldManagement = () => {
           <Typography sx={{ alignContent: "baseline" }}>
             Expenses List
           </Typography>
-          <Button variant="contained">Add new Activity</Button>
+          <Button variant="contained" onClick={()=>setOpenExpenseModal(true)}>Add new Expense</Button>
+          <AddExpenseModal open={openExpenseModal} setOpen={setOpenExpenseModal} fieldId={Number(id)} />
         </Box>
         <Box height="45vh" m="5px 0 0 0">
-          <DataGrid columns={[]} rows={[]}/>
+        <DataGrid columns={expensesColumns} rows={expensesData}/>
         </Box>
         
       </Box>

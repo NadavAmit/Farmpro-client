@@ -9,10 +9,13 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../components/Global/Header";
 import Field from "../api/models/field";
 import useFields from "../hooks/useFields";
+import { useNavigate } from "react-router-dom";
 
 const FieldCreatePage = () => {
   const { addField: addField } = useFields();
   const isNonMobile = useMediaQuery("(min-width:600px)");
+  const navigate = useNavigate();
+
 
   const handleFormSubmit = async (newField: Field) => {
     console.log(newField);
@@ -51,7 +54,10 @@ const FieldCreatePage = () => {
           handleChange,
           handleSubmit,
         }) => (
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={()=>{
+            handleSubmit();
+            navigate('/field');
+            }}>
             <Box
               display="grid"
               gap="30px"

@@ -1,7 +1,7 @@
 interface Earning {
     _id?: number;
-    field_id: number;
-    earning_type: string;
+    fieldId: number;
+    earningType: string;
     amount: number;
     date: Date;
 }

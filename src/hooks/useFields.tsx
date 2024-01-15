@@ -24,7 +24,7 @@ const useFields = () => {
                     newData: newFieldData,
                     model: model,
                     enabled: true,
-                    queryKey: 'getAllFields'
+                    queryKey: ['getAllFields']
                 })
         }
         catch (error) {
@@ -42,7 +42,7 @@ const useFields = () => {
                     updatedData: updatedFieldData,
                     model: model,
                     enabled: true,
-                    queryKey: 'getAllFields'
+                    queryKey: ['getAllFields']
                 })
         }
         catch (error) {
@@ -58,7 +58,7 @@ const useFields = () => {
                     path: 'field',
                     model: model,
                     enabled: true,
-                    queryKey: 'getAllFields'
+                    queryKey: ['getAllFields']
                 })
         }
         catch (error) {

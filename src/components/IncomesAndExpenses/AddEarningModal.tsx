@@ -11,39 +11,37 @@ import {
 import { Formik } from "formik";
 import React from "react";
 import * as yup from "yup";
-import Activity from "../../api/models/activity";
-import useActivities from "../../hooks/useActivities";
+import useEarnings from "../../hooks/useEarnings";
+import Earning from "../../api/models/earning";
 
-interface AddActivityModalProps {
+interface AddEarningModalProps {
   open: boolean;
   setOpen: (open: boolean) => void;
   fieldId:number;
 }
-const AddActivityModal: React.FC<AddActivityModalProps> = ({
+const AddEarningModal: React.FC<AddEarningModalProps> = ({
   open,
   setOpen,
   fieldId
 }) => {
-  const { addActivity } = useActivities();
+  const { addEarning } = useEarnings();
   
   const today = new Date();
 
-  const handleFormSubmit = async (newActivity: Activity) => {
-    const createdActivity = await addActivity(newActivity);
+  const handleFormSubmit = async (newEarning: Earning) => {
+    await addEarning(newEarning);
   };
 
   const checkoutSchema = yup.object().shape({
-    status: yup.string().required("required"),
+    earningType: yup.string().required("required"),
     // date: yup.date().max(today),
-    cropType: yup.number().required("required"),
-    fieldSize: yup.number().required("required"),
-  });
-  const initialValues: Activity = {
-    status: "",
-    date: new Date(),
-    cropType: "",
-    fieldSize: 0,
-    fieldId
+    amount: yup.number().required("required"),
+   });
+  const initialValues: Earning = {
+    fieldId,
+    earningType: "",
+    amount: 0,
+    date: today
   };
 
   const handleClose = () => {
@@ -52,7 +50,7 @@ const AddActivityModal: React.FC<AddActivityModalProps> = ({
 
   return (
     <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>Activity</DialogTitle>
+      <DialogTitle>Earning</DialogTitle>
       <DialogContent>
         <DialogContentText>
           To subscribe to this website, please enter your email address here. We
@@ -84,13 +82,13 @@ const AddActivityModal: React.FC<AddActivityModalProps> = ({
                   fullWidth
                   variant="filled"
                   type="text"
-                  label="Status"
+                  label="Earning Type"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  value={values.status}
-                  name="status"
-                  error={!!touched.status && !!errors.status}
-                  helperText={touched.status && errors.status}
+                  value={values.earningType}
+                  name="earningType"
+                  error={!!touched.earningType && !!errors.earningType}
+                  helperText={touched.earningType && errors.earningType}
                   sx={{ gridColumn: "span 2" }}
                 />
                 {/* <DateField
@@ -103,33 +101,20 @@ const AddActivityModal: React.FC<AddActivityModalProps> = ({
                   fullWidth
                   variant="filled"
                   type="number"
-                  label="Crop Type"
+                  label="Amount"
                   onBlur={handleBlur}
                   onChange={handleChange}
-                  value={values.cropType}
-                  name="cropType"
-                  error={!!touched.cropType && !!errors.cropType}
-                  helperText={touched.cropType && errors.cropType}
+                  value={values.amount}
+                  name="amount"
+                  error={!!touched.amount && !!errors.amount}
+                  helperText={touched.amount && errors.amount}
                   sx={{ gridColumn: "span 2" }}
-                />
-                <TextField
-                  fullWidth
-                  variant="filled"
-                  type="number"
-                  label="Field Size"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  value={values.fieldSize}
-                  name="fieldSize"
-                  error={!!touched.fieldSize && !!errors.fieldSize}
-                  helperText={touched.fieldSize && errors.fieldSize}
-                  sx={{ gridColumn: "span 4" }}
                 />
               </Box>
               <DialogActions>
                 <Button onClick={handleClose}>Cancel</Button>
                 <Button type="submit" onClick={handleClose}>
-                  Add Activity
+                  Add Earning
                 </Button>
               </DialogActions>
             </form>
@@ -140,4 +125,4 @@ const AddActivityModal: React.FC<AddActivityModalProps> = ({
   );
 };
 
-export default AddActivityModal;
+export default AddEarningModal;

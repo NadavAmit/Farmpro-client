@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import useFields from "../hooks/useFields";
 import { DataGrid,GridAlignment,GridCellParams } from "@mui/x-data-grid";
-import { Box } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import Header from "../components/Global/Header";
 import { useNavigate } from "react-router-dom";
 
@@ -59,7 +59,6 @@ const Fields = () => {
               bgcolor="white"
               borderRadius="6px"
               onClick={() => {
-                console.log(cellValues.row)
                 navigate(`/field/${cellValues.row.id}`);
               }}
             >
@@ -131,6 +130,18 @@ const Fields = () => {
   return (
     <Box m="20px">
       <Header title="Fields" subtitle="Manage all the Fields" />
+      <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
+          <Typography sx={{ alignContent: "baseline" }}>
+            Expenses List
+          </Typography>
+          <Button variant="contained" onClick={()=>{navigate(`/field/create`)}}>Add new Field</Button>
+        </Box>
       <Box
         m="40px 0 0 0"
         height="75vh"
